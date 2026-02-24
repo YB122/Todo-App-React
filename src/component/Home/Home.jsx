@@ -203,7 +203,7 @@ export default function Home() {
 
               <form onSubmit={handleSubmitEdit(editTask)} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-[hsl(var(--text-heading))] mb-2 ml-1">Title</label>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2 ml-1">Title</label>
                   <input
                     type="text"
                     className="bg-slate-50 border border-slate-200 rounded-full text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
@@ -216,7 +216,7 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-[hsl(var(--text-heading))] mb-2 ml-1">Description</label>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2 ml-1">Description</label>
                   <textarea
                     rows={3}
                     className="bg-slate-50 border border-slate-200 rounded-3xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3 resize-none dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
