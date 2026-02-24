@@ -287,11 +287,11 @@ export default function Home() {
               )}
             </div>
 
-            <button type="submit" className="bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all h-[54px] px-8 dark:bg-blue-600 dark:hover:bg-blue-700 dark:shadow-blue-900/20">
-              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button type="submit" className="w-full md:w-auto bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all h-[54px] px-10 flex items-center justify-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:shadow-blue-900/20">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
               </svg>
-              Add
+              Add Task
             </button>
           </form>
         </div>
