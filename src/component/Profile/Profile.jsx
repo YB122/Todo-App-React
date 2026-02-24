@@ -74,7 +74,7 @@ export default function Profile() {
   };
 
   if (!userData) return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in shadow-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-[60vh] shadow-gray-100">
       <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
       <p className="mt-4 text-slate-500 dark:text-slate-400 font-medium">Authenticating...</p>
     </div>
@@ -82,7 +82,7 @@ export default function Profile() {
 
   return (
     <div className="pt-24 pb-12 px-6 min-h-screen">
-      <div className="max-w-2xl mx-auto bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 p-0 overflow-hidden animate-fade-in">
+      <div className="max-w-2xl mx-auto bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 p-0 overflow-hidden">
         <div className="bg-linear-to-r from-blue-600 to-indigo-600 h-32 relative">
           <div className="absolute -bottom-10 left-8">
             <div className="w-24 h-24 bg-white dark:bg-slate-900 rounded-2xl p-1 shadow-xl">

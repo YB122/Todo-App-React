@@ -60,7 +60,7 @@ export default function Register() {
 
   return (
     <div className="pt-32 pb-12 px-6 min-h-screen flex items-center justify-center bg-linear-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-500">
-      <div className="w-full max-w-lg animate-fade-in">
+      <div className="w-full max-w-lg">
         <div className="bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 p-8 md:p-10">
           <div className="text-center mb-10">
             <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-3">
