@@ -108,7 +108,7 @@ export default function Home() {
         <div className="flex justify-end gap-2">
           <button
             onClick={() => toast.dismiss(t.id)}
-            className="px-3 py-1.5 text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg hover:opacity-80 transition-all"
+            className="px-5 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full hover:opacity-80 transition-all"
           >
             Cancel
           </button>
@@ -117,7 +117,7 @@ export default function Home() {
               deleteTodo(id);
               toast.dismiss(t.id);
             }}
-            className="px-3 py-1.5 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-all"
+            className="px-5 py-2 text-sm font-bold text-white bg-red-500 rounded-full hover:bg-red-600 shadow-lg shadow-red-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
             Delete
           </button>
@@ -126,7 +126,13 @@ export default function Home() {
     ), {
       duration: 5000,
       position: 'top-center',
-      className: 'bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl p-5 rounded-2xl',
+      style: {
+        background: 'transparent',
+        boxShadow: 'none',
+        border: 'none',
+        padding: 0,
+      },
+      className: 'bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl p-6 rounded-3xl min-w-[320px] animate-fade-in',
     });
   }
   function ediitTodo(todo) {
