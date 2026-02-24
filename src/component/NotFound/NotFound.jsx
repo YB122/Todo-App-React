@@ -92,7 +92,7 @@ const NotFound = () => {
         </div>
 
         {/* Message */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 animate-fade-in">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
           Page Not Found
         </h1>
 
