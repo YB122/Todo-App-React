@@ -102,37 +102,42 @@ export default function Home() {
   }
 
   function confirmDelete(id) {
-    toast((t) => (
-      <div className="flex flex-col gap-3">
-        <p className="font-medium text-slate-900 dark:text-white">Are you sure you want to delete this task?</p>
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            className="px-5 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full hover:opacity-80 transition-all"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={() => {
-              deleteTodo(id);
-              toast.dismiss(t.id);
-            }}
-            className="px-5 py-2 text-sm font-bold text-white bg-red-500 rounded-full hover:bg-red-600 shadow-lg shadow-red-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-          >
-            Delete
-          </button>
+    toast.custom((t) => (
+      <div className={`${t.visible ? 'animate-fade-in' : 'opacity-0'} max-w-md w-full bg-white dark:bg-slate-900 shadow-2xl rounded-3xl pointer-events-auto flex flex-col p-6 border border-slate-100 dark:border-slate-800 ring-1 ring-black ring-opacity-5 transition-all duration-300`}>
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center text-red-500">
+               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+               </svg>
+             </div>
+             <p className="text-lg font-bold text-slate-900 dark:text-white">Delete Task?</p>
+          </div>
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed px-1">
+            Are you sure you want to remove this task? This action cannot be undone and the text content will be lost.
+          </p>
+          <div className="flex justify-end gap-3 mt-2">
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="px-6 py-2.5 text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full hover:opacity-80 transition-all border border-transparent dark:border-slate-700"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                deleteTodo(id);
+                toast.dismiss(t.id);
+              }}
+              className="px-6 py-2.5 text-sm font-bold text-white bg-red-500 rounded-full hover:bg-red-600 shadow-lg shadow-red-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all"
+            >
+              Confirm Delete
+            </button>
+          </div>
         </div>
       </div>
     ), {
       duration: 5000,
       position: 'top-center',
-      style: {
-        background: 'transparent',
-        boxShadow: 'none',
-        border: 'none',
-        padding: 0,
-      },
-      className: 'bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl p-6 rounded-3xl min-w-[320px] animate-fade-in',
     });
   }
   function ediitTodo(todo) {
