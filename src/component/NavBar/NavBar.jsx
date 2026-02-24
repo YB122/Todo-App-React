@@ -48,7 +48,7 @@ export default function NavBar() {
           <ToggleMode />
 
           {userToken ? (
-            <div className="flex items-center gap-4 animate-fade-in text-sm font-medium">
+            <div className="flex items-center gap-4 text-sm font-medium">
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -62,7 +62,7 @@ export default function NavBar() {
               </button>
 
               <div
-                className={`z-50 ${isDropdownOpen ? "block" : "hidden"} absolute right-0 top-full mt-2 text-base list-none bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800 rounded-2xl shadow-xl animate-fade-in`}
+                className={`z-50 ${isDropdownOpen ? "block" : "hidden"} absolute right-0 top-full mt-2 text-base list-none bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800 rounded-2xl shadow-xl`}
                 id="user-dropdown"
               >
                 {userData && (
