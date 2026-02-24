@@ -182,7 +182,7 @@ export default function Home() {
         >
           <div className="relative w-full max-w-md animate-fade-in">
             <div className="bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 overflow-hidden w-full max-w-lg mx-auto p-6 md:p-8">
-              <div className="flex items-center justify-between border-b border-[hsl(var(--border-default))] pb-5 mb-6">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                   Edit Task
                 </h3>
@@ -302,7 +302,7 @@ export default function Home() {
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 truncate group-hover:text-blue-500 transition-colors">
                   {todo.title}
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 italic">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
                   {todo.description}
                 </p>
               </div>
