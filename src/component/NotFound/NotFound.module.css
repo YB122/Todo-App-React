@@ -1,0 +1,342 @@
+/* Container */
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: float infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Error Code */
+.errorCode {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.digit {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+.digit1 {
+  animation-delay: 0s;
+}
+
+.digit2 {
+  animation-delay: 0.1s;
+}
+
+.digit3 {
+  animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Animated Zero */
+.zeroContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.zeroSvg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+.zeroCircle {
+  animation: drawCircle 3s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: 283;
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dashoffset: 0;
+    transform: rotate(180deg);
+  }
+  100% {
+    stroke-dashoffset: 283;
+    transform: rotate(360deg);
+  }
+}
+
+.zeroInner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glitch Effect */
+.glitchOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 900;
+  color: #fff;
+  opacity: 0.7;
+  animation: glitch 5s infinite;
+  pointer-events: none;
+}
+
+@keyframes glitch {
+  0%,
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) skew(0deg);
+  }
+  92% {
+    opacity: 0.7;
+    transform: translateX(-48%) skew(-2deg);
+  }
+  94% {
+    opacity: 0.7;
+    transform: translateX(-52%) skew(2deg);
+  }
+  96% {
+    opacity: 0;
+    transform: translateX(-50%) skew(0deg);
+  }
+}
+
+/* Buttons */
+.btnPrimary,
+.btnSecondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.btnPrimary::before,
+.btnSecondary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.btnPrimary:hover::before,
+.btnSecondary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btnPrimary:active,
+.btnSecondary:active {
+  transform: translateY(-1px);
+}
+
+.btnIcon,
+.btnText {
+  position: relative;
+  z-index: 2;
+}
+
+.btnShimmer {
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Decorative Elements */
+.decoration {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.decoration1 {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  right: -150px;
+  animation: pulse 4s infinite;
+}
+
+.decoration2 {
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  left: -100px;
+  animation: pulse 5s infinite 1s;
+}
+
+.decoration3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: -75px;
+  animation: pulse 6s infinite 2s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem;
+  }
+
+  .errorCode {
+    gap: 0.5rem;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
