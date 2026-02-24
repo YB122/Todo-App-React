@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Home.module.css";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import toast from "react-hot-toast";
+
 export default function Home() {
   const [isOpen, setisOpen] = useState(false);
   let [todos, setTodos] = useState([]);
@@ -24,7 +25,7 @@ export default function Home() {
     register: registerAdd,
     handleSubmit: handleSubmitAdd,
     reset: resetAdd,
-    formState: { errors: errorsAdd, touchedFields: touchedAdd },
+    formState: { errors: errorsAdd },
   } = useForm({
     defaultValues: {
       title: "",
@@ -39,13 +40,12 @@ export default function Home() {
     register: registerEdit,
     handleSubmit: handleSubmitEdit,
     reset: resetEdit,
-    formState: { errors: errorsEdit, touchedFields: touchedEdit },
+    formState: { errors: errorsEdit },
   } = useForm({
     resolver: zodResolver(schema),
     mode: "onTouched",
   });
   function getPosts() {
-    // const token = localStorage.getItem("userToken");
     axios
       .get("https://todo-nti.vercel.app/todo/get-all", {
         headers: {
@@ -75,11 +75,13 @@ export default function Home() {
         },
       })
       .then(() => {
+        toast.success("Task added successfully!");
         getPosts();
         resetAdd();
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to add task.");
       });
   }
   function deleteTodo(id) {
@@ -90,11 +92,42 @@ export default function Home() {
         },
       })
       .then(() => {
+        toast.success("Task deleted successfully!");
         getPosts();
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to delete task.");
       });
+  }
+
+  function confirmDelete(id) {
+    toast((t) => (
+      <div className="flex flex-col gap-3">
+        <p className="font-medium text-slate-900 dark:text-white">Are you sure you want to delete this task?</p>
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-3 py-1.5 text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg hover:opacity-80 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              deleteTodo(id);
+              toast.dismiss(t.id);
+            }}
+            className="px-3 py-1.5 text-xs font-semibold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-all"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: 5000,
+      position: 'top-center',
+      className: 'bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl p-5 rounded-2xl',
+    });
   }
   function ediitTodo(todo) {
     console.log("edit");
@@ -122,232 +155,188 @@ export default function Home() {
         },
       )
       .then(() => {
+        toast.success("Task updated successfully!");
         getPosts();
         resetEdit();
         setisOpen(false);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Failed to update task.");
       });
   }
 
   return (
-    <>
+    <div className="pt-24 pb-12 min-h-screen animate-fade-in transition-colors duration-500">
       {/* modal start */}
       {isOpen && (
-        <>
-          <div
-            id="authentication-modal"
-            tabIndex={-1}
-            aria-hidden="true"
-            className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ${isOpen ? "flex" : "hidden"}`}
-          >
-            <div className="relative p-4 w-full max-w-md max-h-full">
-              <div className="relative bg-neutral-primary-soft border border-default rounded-base shadow-sm p-4 md:p-6">
-                {/* Header */}
-                <div className="flex items-center justify-between border-b border-default pb-4 md:pb-5">
-                  <h3 className="text-lg font-medium text-heading">
-                    Edit Task
-                  </h3>
+        <div
+          id="authentication-modal"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in"
+        >
+          <div className="relative w-full max-w-md animate-fade-in">
+            <div className="bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 overflow-hidden w-full max-w-lg mx-auto p-6 md:p-8">
+              <div className="flex items-center justify-between border-b border-[hsl(var(--border-default))] pb-5 mb-6">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  Edit Task
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setisOpen(false);
+                    resetEdit();
+                    setCurrentTodo(null);
+                  }}
+                  className="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl p-2 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
+              <form onSubmit={handleSubmitEdit(editTask)} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-semibold text-[hsl(var(--text-heading))] mb-2 ml-1">Title</label>
+                  <input
+                    type="text"
+                    className="bg-slate-50 border border-slate-200 rounded-full text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
+                    placeholder="Task title"
+                    {...registerEdit("title")}
+                  />
+                  {errorsEdit.title && (
+                    <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">{errorsEdit.title.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-[hsl(var(--text-heading))] mb-2 ml-1">Description</label>
+                  <textarea
+                    rows={3}
+                    className="bg-slate-50 border border-slate-200 rounded-3xl text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3 resize-none dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
+                    placeholder="Task details"
+                    {...registerEdit("description")}
+                  />
+                  {errorsEdit.description && (
+                    <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">{errorsEdit.description.message}</p>
+                  )}
+                </div>
+
+                <div className="flex gap-3">
                   <button
                     type="button"
                     onClick={() => {
                       setisOpen(false);
                       resetEdit();
-                      setCurrentTodo(null);
                     }}
-                    className="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+                    className="flex-1 py-3 font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-full hover:opacity-80 transition-all"
                   >
-                    <svg
-                      className="w-5 h-5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18 17.94 6M18 18 6.06 6"
-                      />
-                    </svg>
-                    <span className="sr-only">Close modal</span>
+                    Cancel
+                  </button>
+                  <button type="submit" className="flex-2 bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all dark:bg-blue-600 dark:hover:bg-blue-700 dark:shadow-blue-900/20">
+                    Update Task
                   </button>
                 </div>
-
-                {/* Body */}
-                <form
-                  className="pt-4 md:pt-6"
-                  onSubmit={handleSubmitEdit(editTask)}
-                >
-                  <div className="mb-5">
-                    <label
-                      htmlFor="text"
-                      className="block mb-2.5 text-sm font-medium text-heading capitalize"
-                    >
-                      title
-                    </label>
-                    <input
-                      type="text"
-                      id="title"
-                      className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                      placeholder="What needs to be done?"
-                      {...registerEdit("title")}
-                      // value={currentTodo.title}
-                    />
-                    {errorsEdit.title && touchedEdit.title && (
-                      <p className="text-red-500 text-sm">
-                        {errorsEdit.title.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="mb-5">
-                    <label
-                      htmlFor="message"
-                      className="block mb-2.5 text-sm font-medium text-heading capitalize"
-                    >
-                      description
-                    </label>
-
-                    <textarea
-                      id="message"
-                      rows={2}
-                      className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
-                      placeholder="Add some details..."
-                      {...registerEdit("description")}
-                      // value={currentTodo.description}
-                    ></textarea>
-                    {errorsEdit.description && touchedEdit.description && (
-                      <p className="text-red-500 text-sm">
-                        {errorsEdit.description.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="text-white w-full bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none transition-colors"
-                  >
-                    Edit Task
-                  </button>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
-        </>
+        </div>
       )}
-      {/* modal end */}
-      <form
-        onSubmit={handleSubmitAdd(addTodo)}
-        className="max-w-sm mx-auto border-1 m-5 p-5 rounded-base bg-neutral-primary-medium dark:bg-neutral-secondary-medium"
-      >
-        <h2 className="text-xl font-bold mb-4 text-heading border-b pb-2">
-          Add New Task
-        </h2>
-        <div className="mb-5">
-          <label
-            htmlFor="text"
-            className="block mb-2.5 text-sm font-medium text-heading capitalize"
-          >
-            title
-          </label>
-          <input
-            type="text"
-            id="title"
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="What needs to be done?"
-            {...registerAdd("title")}
-          />
-          {errorsAdd.title && touchedAdd.title && (
-            <p className="text-red-500 text-sm">{errorsAdd.title.message}</p>
-          )}
+
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 p-6 md:p-10 mb-12 bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 animate-fade-in">
+          <div className="flex items-center gap-3 mb-8">
+             <div className="w-1.5 h-8 bg-blue-600 rounded-full"></div>
+             <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create New Task</h2>
+          </div>
+          
+          <form onSubmit={handleSubmitAdd(addTodo)} className="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-4 items-start">
+            <div className="space-y-1">
+              <input
+                type="text"
+                className="bg-slate-50 border border-slate-200 rounded-full text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3.5 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
+                placeholder="Title"
+                {...registerAdd("title")}
+              />
+              {errorsAdd.title && (
+                <p className="text-red-500 text-xs ml-1 font-medium">{errorsAdd.title.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-1">
+              <textarea
+                rows={1}
+                className="bg-slate-50 border border-slate-200 rounded-full text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/15 focus:border-blue-500 transition-all outline-none font-medium px-6 w-full py-3.5 min-h-[50px] resize-none dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
+                placeholder="Description"
+                {...registerAdd("description")}
+              />
+              {errorsAdd.description && (
+                <p className="text-red-500 text-xs ml-1 font-medium">{errorsAdd.description.message}</p>
+              )}
+            </div>
+
+            <button type="submit" className="bg-blue-600 text-white font-bold rounded-full shadow-lg shadow-blue-500/20 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all h-[54px] px-8 dark:bg-blue-600 dark:hover:bg-blue-700 dark:shadow-blue-900/20">
+              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
+              </svg>
+              Add
+            </button>
+          </form>
         </div>
 
-        <div className="mb-5">
-          <label
-            htmlFor="message"
-            className="block mb-2.5 text-sm font-medium text-heading capitalize"
-          >
-            description
-          </label>
-
-          <textarea
-            id="message"
-            rows={2}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body"
-            placeholder="Add some details..."
-            {...registerAdd("description")}
-          ></textarea>
-          {errorsAdd.description && touchedAdd.description && (
-            <p className="text-red-500 text-sm">
-              {errorsAdd.description.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="text-white w-full bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none transition-colors"
-        >
-          Add Task
-        </button>
-      </form>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {todos.map((todo) => (
+        <div className="grid grid-cols-1 gap-6">
+          {todos.map((todo, index) => (
             <div
               key={todo._id}
-              className="bg-white dark:bg-neutral-secondary-medium border border-default-light dark:border-default-medium rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+              className="bg-white border border-slate-100 rounded-3xl shadow-xl shadow-slate-200/50 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none transition-all duration-300 p-6 flex items-center justify-between group animate-fade-in"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div>
-                <h3 className="text-lg font-semibold text-heading mb-2 line-clamp-1">
+              <div className="flex-1 min-w-0 pr-6">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 truncate group-hover:text-blue-500 transition-colors">
                   {todo.title}
                 </h3>
-                <p className="text-body text-sm mb-4 line-clamp-3 min-h-[4.5rem]">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 italic">
                   {todo.description}
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-default-light dark:border-default-medium">
+              <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
-                  onClick={() => {
-                    ediitTodo(todo);
-                  }}
-                  data-modal-target="authentication-modal"
-                  data-modal-toggle="authentication-modal"
-                  className="flex-1 px-4 py-2 text-sm font-medium text-brand border border-brand rounded-lg hover:bg-brand hover:text-white transition-all duration-200 focus:ring-2 focus:ring-brand focus:ring-offset-2"
+                  onClick={() => ediitTodo(todo)}
+                  className="w-11 h-11 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all shadow-sm"
+                  title="Edit task"
                 >
-                  Edit
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
                 </button>
-
                 <button
-                  onClick={() => {
-                    deleteTodo(todo._id);
-                  }}
-                  className="flex-1 px-4 py-2 text-sm font-medium text-red-600 border border-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-200 focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                  onClick={() => confirmDelete(todo._id)}
+                  className="w-11 h-11 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                  title="Delete task"
                 >
-                  Delete
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
                 </button>
               </div>
             </div>
           ))}
-        </div>
 
-        {todos.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-body text-lg italic">
-              No tasks found. Add your first task above!
-            </p>
-          </div>
-        )}
+          {todos.length === 0 && (
+            <div className="text-center py-20 animate-fade-in">
+              <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400 opacity-50">
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+              <p className="text-slate-900 dark:text-white text-xl font-bold mb-2">Ready to be productive?</p>
+              <p className="text-slate-500 dark:text-slate-400">Your task list is empty. Add something above!</p>
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
