@@ -312,7 +312,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => ediitTodo(todo)}
                   className="w-11 h-11 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all shadow-sm"
