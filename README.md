@@ -12,7 +12,7 @@
 
 ## 🚀 Experience the Quality
 
-**Live Demo**: [todoappreactnti.netlify.app](https://todoappreactnti.vercel.app)
+**Live Demo**: [todoappreactnti.vercel.app](https://todoappreactnti.vercel.app)
 
 ### ✨ Core Features
 
