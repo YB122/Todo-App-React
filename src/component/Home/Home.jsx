@@ -304,10 +304,10 @@ export default function Home() {
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <div className="flex-1 min-w-0 pr-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 truncate group-hover:text-blue-500 transition-colors">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 whitespace-normal break-words group-hover:text-blue-500 transition-colors">
                   {todo.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-normal break-words">
                   {todo.description}
                 </p>
               </div>

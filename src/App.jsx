@@ -31,8 +31,22 @@ let routes = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: "login", element: <GuestRoute><Login /></GuestRoute> },
-      { path: "register", element: <GuestRoute><Register /></GuestRoute> },
+      {
+        path: "login",
+        element: (
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+        ),
+      },
+      {
+        path: "register",
+        element: (
+          <GuestRoute>
+            <Register />
+          </GuestRoute>
+        ),
+      },
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -42,21 +56,24 @@ function App() {
   return (
     <>
       <UserProvider>
-        <Toaster 
-          position="top-right" 
+        <Toaster
+          position="top-right"
           reverseOrder={false}
           toastOptions={{
             // Standard toasts will now respect dark mode classes
-            className: 'dark:bg-slate-900 dark:text-white dark:border-slate-800',
+            className:
+              "dark:bg-slate-900 dark:text-white dark:border-slate-800",
             style: {
-              borderRadius: '16px',
+              borderRadius: "16px",
             },
             success: {
-              className: 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 shadow-xl',
+              className:
+                "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 shadow-xl",
             },
             error: {
-              className: 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 shadow-xl',
-            }
+              className:
+                "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 shadow-xl",
+            },
           }}
         />
         <RouterProvider router={routes}></RouterProvider>
