@@ -1,11 +1,12 @@
-# ☀️ TodoSun - Premium React Task Manager
+# ☀️ TodoSun - Premium React Task Management Suite
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?logo=vite)](https://vite.dev/)
+[![Vercel](https://img.shields.io/badge/API-PostgreSQL-000000?logo=vercel)](https://todo-nti.vercel.app/)
 
-**TodoSun** is a high-end task management suite designed for speed, security, and elegance. Built with the latest **React 19** and **Tailwind CSS v4**, it delivers a "glassmorphism" inspired UI that feels native on any device.
+**TodoSun** is a state-of-the-art task management application engineered for modern professionals. It combines the power of **React 19** with the sleek aesthetics of **Tailwind CSS v4** to provide a seamless, high-performance experience across all devices.
 
 ---
 
@@ -15,68 +16,100 @@
 
 ### ✨ Core Features
 
-- **🎯 Precision Dashboards**: Clean, focus-oriented task list with instant CRUD actions and full content visibility on all screens.
-- **🛡️ Advanced Security**: Multi-layered route protection with separate **Guest** and **User** states.
-- **👁️ Password Intelligence**: Secure "eye" toggle visibility on Login, Register, and Profile settings for error-free credential entry.
-- **🌓 Intelligent Dark Mode**: Persistence-enabled theme switching with high-contrast slate aesthetics.
-- **⚡ Reactive Feedback**: Real-time toast notifications for every action via `react-hot-toast`.
-- **⚙️ Profile Suite**: Dedicated user management area with secure name and password modification.
-- **📱 Universal Reach**: 100% responsive design, optimized for everything from ultra-wide monitors to mobile devices.
+- **🎯 Precision Dashboards**: A clean, focus-oriented task list with instant CRUD (Create, Read, Update, Delete) actions. Content intelligent wrapping ensures readability on any screen size.
+- **🛡️ Multi-Layered Security**: Robust authentication system with protected routes using custom `ProtectedRoute` and `GuestRoute` components.
+- **👁️ Password Visibility Intelligence**: Integrated "Eye" toggle buttons across Login, Register, and Profile settings to ensure credential accuracy.
+- **🌓 Intelligent Dark Mode**: A persistence-enabled theme engine that remembers your preference, featuring a high-contrast slate aesthetic for reduced eye strain.
+- **⚡ Reactive Feedback System**: Real-time notifications for every action (success, error, loading) via a customized `react-hot-toast` implementation.
+- **⚙️ Comprehensive Profile Suite**: Dedicated user management area allowing secure updates to personal details and credentials.
+- **📱 Universal Responsiveness**: A mobile-first design strategy that adapts perfectly from 4K monitors to compact smartphones.
 
 ---
 
-## 🛠️ Performance Tech Stack
+## 🛠️ Technical Architecture
 
-TodoSun is built on a modern, future-proof foundation:
+### 🚀 Frontend Engine
+- **Framework**: [React 19](https://react.dev/) utilizing the latest concurrent features.
+- **Styling Strategy**: **Explicit Tailwind CSS v4**. We avoid external CSS files to ensure zero-config portability and high performance.
+- **Logic & Forms**: [React Hook Form](https://react-hook-form.com/) combined with [Zod](https://zod.dev/) for industrial-grade schema validation.
+- **State Management**: Context API for global user authentication and token handling.
+- **Tooling**: [Vite 6.0](https://vite.dev/) for lightning-fast HMR and optimized production builds.
 
-- **Core**: [React 19](https://react.dev/) (Concurrent rendering, ultra-efficient state management)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (Explicit utility architecture, zero custom CSS overhead)
-- **Validation**: [Zod](https://zod.dev/) & [React Hook Form](https://react-hook-form.com/) (Type-safe, high-performance forms)
-- **Engine**: [Vite](https://vite.dev/) (Next-gen frontend tooling)
-- **Networking**: [Axios](https://axios-http.com/) (Robust API integration)
-- **Routing**: [React Router DOM v7](https://reactrouter.com/) (Segmented auth guarding)
+### 🌐 Backend Integration
+TodoSun consumes a professional RESTful API:
+- **Base URL**: `https://todo-nti.vercel.app/`
+- **Endpoints**:
+  - `POST /user/signup`: Registration
+  - `POST /user/login`: Authentication
+  - `GET /todo/get-all`: Task Retrieval
+  - `POST /todo/create`: Task Creation
+  - `PATCH /todo/update-todo/:id`: Task Modification
+  - `DELETE /todo/delete-todo/:id`: Task Removal
 
 ---
 
-## 📁 Installation & Setup
+## 📂 Project Structure
 
-Get TodoSun running locally in seconds:
-
-```bash
-# 1. Clone the project
-git clone https://github.com/YB122/Todo-App-React.git
-
-# 2. Enter the directory
-cd Todo-App-React
-
-# 3. Install the engine
-npm install
-
-# 4. Ignite development
-npm run dev
-
-# 5. Build for production
-npm run build
+```text
+src/
+├── component/        # Atomic components scaled for reuse
+│   ├── Home/         # Main task dashboard logic
+│   ├── Login/        # Secure entry point
+│   ├── Register/     # New user onboarding
+│   ├── Profile/      # User account settings
+│   ├── NavBar/       # Dynamic navigation with theme toggle
+│   └── ...           # Layout, Guest/Protected Route wrappers
+├── contexts/         # Global state (User auth & tokens)
+├── assets/           # Static media and brand assets
+└── App.jsx           # Root routing and configuration
 ```
 
 ---
 
-## 💎 Design Philosophy: "Explicit Tailwind"
+## 💎 Design Philosophy
 
-This project adheres to the **Explicit Tailwind Philosophy**. By avoiding custom CSS files and modular styles, we ensure:
+### "Glassmorphism & Flow"
+The UI is inspired by modern design trends:
+- **Depth**: Subtle borders and translucent backgrounds.
+- **Micro-animations**: Smooth transitions for modal entries and list updates.
+- **Typography**: Utilizing clean sans-serif fonts for maximum legibility.
+- **Pill-Aesthetic**: Extensive use of high-border-radius elements (`rounded-full`, `rounded-3xl`) for a approachable, premium feel.
 
-- **Zero Configuration**: styles are 100% portable and predictable.
-- **Pill-Aesthetic**: Extensive use of `rounded-full` for a friendly, modern user experience.
-- **Maintenance**: Documentation-by-design; you see the style directly in the logic.
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm / yarn
+
+### Installation
+1. **Clone the project**
+   ```bash
+   git clone https://github.com/YB122/Todo-App-React.git
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Ignite development server**
+   ```bash
+   npm run dev
+   ```
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
 
 ---
 
 ## 👤 Author
 
 **Youssef Benyamine**  
-_Front-End Developer | React Specialist_
+*Front-End Software Engineer*
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/youssef-benyamine-b55a81219/)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/YB122)
 
 ---
 
@@ -84,4 +117,4 @@ _Front-End Developer | React Specialist_
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-_Made with ❤️ by [YB122](https://github.com/YB122)_
+*Built with passion for the technical craft.*
