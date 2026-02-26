@@ -11,13 +11,17 @@
 
 ## 🚀 Experience the Quality
 
+**Live Demo**: [todoappreactnti.netlify.app](https://todoappreactnti.netlify.app/)
+
 ### ✨ Core Features
-- **🎯 Precision Dashboards**: Clean, focus-oriented task list with instant CRUD actions.
+
+- **🎯 Precision Dashboards**: Clean, focus-oriented task list with instant CRUD actions and full content visibility on all screens.
 - **🛡️ Advanced Security**: Multi-layered route protection with separate **Guest** and **User** states.
+- **👁️ Password Intelligence**: Secure "eye" toggle visibility on Login, Register, and Profile settings for error-free credential entry.
 - **🌓 Intelligent Dark Mode**: Persistence-enabled theme switching with high-contrast slate aesthetics.
 - **⚡ Reactive Feedback**: Real-time toast notifications for every action via `react-hot-toast`.
-- **⚙️ Profile Suite**: Dedicated user management area with secure credential handling and responsive headers.
-- **📱 Universal Reach**: 100% responsive design, optimized for everything from ultra-wide monitors to mobile reach.
+- **⚙️ Profile Suite**: Dedicated user management area with secure name and password modification.
+- **📱 Universal Reach**: 100% responsive design, optimized for everything from ultra-wide monitors to mobile devices.
 
 ---
 
@@ -60,6 +64,7 @@ npm run build
 ## 💎 Design Philosophy: "Explicit Tailwind"
 
 This project adheres to the **Explicit Tailwind Philosophy**. By avoiding custom CSS files and modular styles, we ensure:
+
 - **Zero Configuration**: styles are 100% portable and predictable.
 - **Pill-Aesthetic**: Extensive use of `rounded-full` for a friendly, modern user experience.
 - **Maintenance**: Documentation-by-design; you see the style directly in the logic.
@@ -69,7 +74,7 @@ This project adheres to the **Explicit Tailwind Philosophy**. By avoiding custom
 ## 👤 Author
 
 **Youssef Benyamine**  
-*Front-End Developer | React Specialist*
+_Front-End Developer | React Specialist_
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://www.linkedin.com/in/youssef-benyamine-b55a81219/)
 
@@ -79,4 +84,4 @@ This project adheres to the **Explicit Tailwind Philosophy**. By avoiding custom
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-*Made with ❤️ by [YB122](https://github.com/YB122)*
+_Made with ❤️ by [YB122](https://github.com/YB122)_
